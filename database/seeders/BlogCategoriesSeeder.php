@@ -17,7 +17,7 @@ class BlogCategoriesSeeder extends Seeder
         for ($i = 0; $i < 10; $i++)
         DB::table('blog_categories')->insert([
             'title' => 'Category' .$i,
-            'slug' => 'category #' .$i,
+            'slug' => 'category -' .$i,
         ]);
     }
 }

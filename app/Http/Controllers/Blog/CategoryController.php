@@ -63,7 +63,7 @@ class CategoryController extends Controller
 
         return view('blog.category')->with([
             'category' => $category,
-            'posts' => $posts,
+            'posts4' => $posts,
         ]);
     }
 

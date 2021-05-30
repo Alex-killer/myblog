@@ -8,7 +8,9 @@
     <ul> {{ $c }} + {{ $b }}
     @foreach ($categories as $category)
 
-        <li><a href="{{ route("blog_category", ["category" => $category]) }}">{{ $category->title }}</a></li>
+        <li>
+            <a href="{{ route("blog_category", ["category" => $category]) }}">{{ $category->title }}</a>
+        </li>
 
     @endforeach
     </ul>

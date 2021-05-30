@@ -7,12 +7,14 @@
 @section('content')
     <h1>{{ $category->title }}</h1>
     <ul>
-    @foreach ($posts as $post)
+    @foreach ($posts4 as $post)
 
-        <li>{{ $post->title }}</li>
+            <li>
+                <a href="{{route("blog_post", [$category->id, $post->id])}}">
+                    {{ $post->title }}
+                </a>
+            </li>
 
     @endforeach
     </ul>
 @endsection
-
-
