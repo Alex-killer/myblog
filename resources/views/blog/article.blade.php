@@ -1,14 +1,14 @@
-@extends('layouts.main')
+@extends('layouts.blog')
 
 @section('title')
-    Новости
+    Новость
 @endsection
 
 @section('content')
-    @foreach ($articles as $article)
-        <li>
-            <a href="{{ route("blog_article", ["article" => $article]) }}">{{ $article->title }}</a>
-        </li>
-
-    @endforeach
+    <h1>{{ $article->title }}</h1>
+    <div>
+        <p>
+            {{ $article->content_raw }}
+        </p>
+    </div>
 @endsection

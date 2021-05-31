@@ -9,5 +9,5 @@ class Article extends Model
 {
     use HasFactory;
 
-    public $table = 'articles';
+    //public $table = 'articles';
 }

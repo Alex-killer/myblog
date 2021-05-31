@@ -22,7 +22,7 @@
         <a href="{{ route("blog_categories") }}">Категории</a>
     </li>
     <li>
-        <a href="{{ route("blog_article") }}">Новости</a>
+        <a href="{{ route("blog_articles") }}">Новости</a>
     </li>
 </ul>
 @yield('content')

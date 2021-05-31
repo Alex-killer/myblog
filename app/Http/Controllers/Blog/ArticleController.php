@@ -17,7 +17,7 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('blog.article')->with([
+        return view('blog.articles')->with([
             'articles' => $articles, // масив днных для использования во вью
         ]);
     }
@@ -49,9 +49,12 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+        return view('blog.article')->with([
+            'article' => $article, // 'article' - передается во вью для извлечения данных, $article - ,берется из роута article/{article}
+
+        ]);
     }
 
     /**

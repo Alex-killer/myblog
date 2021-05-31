@@ -24,5 +24,6 @@ Route::prefix("blog")->group(function () {
     Route::get('categories', [CategoryController::class, 'index'])->name("blog_categories"); // выводит все категории
     Route::get('category/{category}', [CategoryController::class, 'show'])->name("blog_category");
     Route::get('category/{category1}/post/{post}/{pages?}', [PostController::class, 'show'])->name("blog_post");
-    Route::get('article', [ArticleController::class, 'index'])->name("blog_article");
+    Route::get('articles', [ArticleController::class, 'index'])->name("blog_articles");
+    Route::get('article/{article}', [ArticleController::class, 'show'])->name("blog_article");
 });
