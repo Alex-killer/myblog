@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -14,7 +15,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::all();
+
+        return view('blog.article')->with([
+            'articles' => $articles, // масив днных для использования во вью
+        ]);
     }
 
     /**
