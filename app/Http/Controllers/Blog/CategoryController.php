@@ -16,15 +16,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all(); // выводится список всех категорий
+        $categories5 = Category::all(); // выводится список всех категорий
 //        $arr = [
 //            'categories' => $categories,
 //            'b' => 10,
 //            'c' => 20
 //        ];
 
-        return view('blog.categories')->with([
-            'categories' => $categories, // масив днных для использования во вью
+        return view('includes.categories')->with([
+            'categories7' => $categories5, // масив днных для использования во вью
             'b' => 10,
             'c' => 20
         ]);
@@ -60,10 +60,12 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $posts = Post::where('category_id', '=', $category->id)->get(); // выводим те посты которые находятся в данной категории
+        $categories5 = Category::all();
 
         return view('blog.category')->with([
             'category' => $category,
             'posts4' => $posts,
+            'categories7' => $categories5,
         ]);
     }
 

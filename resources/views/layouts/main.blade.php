@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{{ route("main") }}" class="navbar-brand">My Blog</a>
 
@@ -46,7 +46,8 @@
             </div>
         </div>
     </nav>
-<div>
+<div class="container">
+    <h1 class="mt-5 mb-4 text-center">@yield('title')</h1>
 @yield('content')
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

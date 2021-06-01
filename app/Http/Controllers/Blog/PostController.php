@@ -51,7 +51,8 @@ class PostController extends Controller
         return view('blog.post')->with([
             'post' => $post,
             'category2' => $category1, // // 'category2' - передается во вью для извлечения данных, $category1 - ,берется из роута category/{category1}
-            'pages' => $request->pages
+            'pages' => $request->pages,
+
         ]);
     }
 

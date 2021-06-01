@@ -15,10 +15,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles6 = Article::orderBy('created_at', 'desc');
 
         return view('blog.articles')->with([
-            'articles' => $articles, // масив днных для использования во вью
+            'articles5' => $articles6->paginate(10) // масив днных для использования во вью
         ]);
     }
 
