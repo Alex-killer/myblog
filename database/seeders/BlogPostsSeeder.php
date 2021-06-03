@@ -16,7 +16,7 @@ class BlogPostsSeeder extends Seeder
     {
         for ($i = 0; $i < 50; $i++){
             DB::table('blog_posts')->insert([
-                'category_id' => rand(1, 10),
+                'category_id' => rand(0, 9),
                 'title' => 'Post '.$i,
                 'slug' => 'post-'.$i,
                 'description' => 'Description of post '.$i,

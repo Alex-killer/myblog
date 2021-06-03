@@ -20,6 +20,7 @@ class CreateBlogCategoriesTable extends Migration
             $table->text('description')->nullable();
             $table->string('slug')->unique();
             $table->timestamps();
+            $table->softDeletes(); # когда запись удалена
         });
     }
 
