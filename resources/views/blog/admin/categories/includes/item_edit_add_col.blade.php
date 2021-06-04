@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Models\Category $item */
+    /** @var \App\Models\Blog\BlogCategory $item */
 @endphp
 <div class="row justify-content-center">
     <div class="col-md-12">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label for="title">Изменено</label>
-                        <input type="text" value="{{ $item->update_at }}" class="form-control" disabled>
+                        <input type="text" value="{{ $item->updated_at }}" class="form-control" disabled>
                     </div>
                     <div class="form-group">
                         <label for="title">Удалено</label>

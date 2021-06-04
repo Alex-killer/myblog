@@ -11,29 +11,30 @@
             @csrf
             <div class="container">
                 @php
-                    /** @var \Illuminate\Support\ViewErrorBag $errors */
+                    /** @var \Illuminate\Support\ViewErrorBag $errors */ // переменная $errors берется из ларавел
                 @endphp
-                @if($errors->any())
+                {{-- Плашка которая будет появляться с ошибкой или с успехом --}}}
+                @if($errors->any()) {{-- смотрим переменную $errors, если в ней хоть что то есть any(), то выполняем код --}}
                     <div class="row justify-content-center">
                         <div class="col-md-11">
                             <div class="alert alert-danger" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">x</span>
                                 </button>
-                                {{ $errors->first() }}
+                                {{ $errors->first() }} {{-- получаем первую ошибку из списка --}}
                             </div>
                         </div>
                     </div>
                 @endif
 
-                @if(session('success'))
+                @if(session('success')) {{-- session хелперская(ларавеля) функция - в session ищем ключ 'success', если найден то выполянется код --}}
                     <div class="row justify-content-center">
                         <div class="col-md-11">
                             <div class="alert alert-success" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">x</span>
                                 </button>
-                                {{ session()->get('success') }}
+                                {{ session()->get('success') }} {{-- получаем значение этого ключа, обращаемся к сесии (session()) получить ключ 'success' --}}
                             </div>
                         </div>
                     </div>

@@ -84,7 +84,7 @@ class CategoryController extends BaseController
 
         if ($result) { // получаем результат работы
             return redirect()
-                ->route('blog.admin.categories.edit', $item->id)
+                ->route('blog.admin.categories.edit', $item->id) // чтобы построить маршрут нам нужен иднтификатор категории $item->id
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
