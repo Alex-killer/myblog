@@ -1,7 +1,7 @@
 @extends('layouts.blog')
 
 @section('title')
-    Категории
+    Новости
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 {{--Панель навигации--}}
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <a class="btn btn-primary " href="{{ route('blog.admin.categories.create') }}">Добавить</a>
+                    <a class="btn btn-primary " href="{{ route('blog.admin.articles.create') }}">Добавить</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -19,22 +19,25 @@
                             <tr>
                                 <th>#</th>
                                 <th>Категория</th>
-                                <th>Родитель</th>
+                                <th>Название</th>
+                                <th>Выдержка</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($paginator as $item)  {{--Пробегаемся по каждому элементу и каждый элемент будет называться item--}}
-                            @php /** @var \App\Models\BlogCategory $item */ @endphp
+                            @foreach($paginator as $item)  {{--Пробегаемся по каждому элементу и каждый элемент будет называться item (через эту переменную будем вывоить текст определенной записи)--}}
+                            @php /** @var \App\Models\Article $item */ @endphp
                             <tr>
                                <td>{{ $item->id }}</td> {{-- выводим идентификатор--}}
+                                <td @if(in_array($item->category_id, [0, 1])) style="color:#ccc" @endif> {{-- если категория 0 или 1 то выводить серым цветом --}}
+                                    {{ $item->category_id }}{{-- $item->parentCategory->title --}} {{-- выводим категорию --}}
+                                </td>
                                 <td>
-                                    <a href="{{ route('blog.admin.categories.edit', $item->id) }}">  {{-- задаем значение переменной, $item->id - идентификатор текущей записи(на которую переходим) --}}
+                                    <a href="{{ route('blog.admin.articles.edit', $item->id) }}">  {{-- задаем значение переменной, $item->id - идентификатор текущей записи(на которую переходим) ссылка чтобы заходить в новость --}}
                                         {{ $item->title }} {{-- ссылка на редактирование --}}
                                     </a>
                                 </td>
-                                <td @if(in_array($item->parent_id, [0, 1])) style="color:#ccc" @endif> {{-- выводим идентификатор родителя --}}
-                                    {{ $item->parent_id }}{{-- $item->parentCategory->title --}}
-                                </td>
+                                <td>{{ $item->excerpt }}</td> {{-- выводим отрывок--}}
+
                             </tr>
                             @endforeach
                             </tbody>

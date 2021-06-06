@@ -13,6 +13,9 @@
         </li>
 
     @endforeach
-        {{$articles5->links('vendor.pagination.bootstrap-4')}}
+        {{$articles5->links('vendor.pagination.bootstrap-4')}} {{-- пагинация --}}
+        <div>
+            <a href="#" class="btn btn-outline-primary mb-4">Редактировать</a>
+        </div>
     </ul>
 @endsection

@@ -10,5 +10,8 @@
         <p>
             {{ $article->content_raw }}
         </p>
+        <div>
+            <a href="#" class="btn btn-outline-primary mb-4">Редактировать</a>
+        </div>
     </div>
 @endsection

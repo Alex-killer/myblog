@@ -18,6 +18,7 @@
     <div>
         <a href="#" class="btn btn-outline-primary mb-4">Назад</a>
     </div>
+
 @endsection
 
 

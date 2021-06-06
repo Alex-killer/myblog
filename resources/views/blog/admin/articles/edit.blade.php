@@ -1,12 +1,12 @@
 @extends('layouts.blog')
 
 @section('title')
-    Редактирование
+    Редактирование новости
 @endsection
 
 @section('content')
-    @php /** @var \App\Models\Blog\BlogCategory $item */ @endphp
-        <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет и выдаст ошибку --}}
+    @php /** @var \App\Models\Blog\Article $item */ @endphp
+        <form method="POST" action="{{ route('blog.admin.articles.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет и выдаст ошибку --}}
             @method('PATCH') {{-- метод отправки формы (PATCH - это когда ты редактируешь сущности и меняешь что то чуть-чуть(пару параметров), а PUT - это когда одну сущность заменяешь другой) --}}
             @csrf
             <div class="container">
@@ -41,10 +41,10 @@
                 @endif
                         <div class="row justify-content-center">
                             <div class="col-md-8">
-                                @include('blog.admin.categories.includes.item_edit_main_col')
+                                @include('blog.admin.articles.includes.item_edit_main_col')
                             </div>
                             <div class="col-md-3">
-                                @include('blog.admin.categories.includes.item_edit_add_col')
+                                @include('blog.admin.articles.includes.item_edit_add_col')
                             </div>
                         </div>
                     </div>

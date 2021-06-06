@@ -29,11 +29,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('blog.article-create', [
-            'article' => [],
-            'articles'=> Article::with('children')->get, // указывается название нашего метода в модели article
-            'delimiter'=> ''
-        ]);
+
     }
 
     /**
@@ -44,9 +40,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Article::create($request->all());
 
-        return redirect()->route('blog.articles');
     }
 
     /**
@@ -83,7 +77,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
