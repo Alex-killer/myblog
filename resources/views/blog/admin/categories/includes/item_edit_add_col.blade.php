@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button> {{-- т.к. находимя внутри формы, то просто пишем submit и она будет отправлять --}}
             </div>
         </div>
     </div>

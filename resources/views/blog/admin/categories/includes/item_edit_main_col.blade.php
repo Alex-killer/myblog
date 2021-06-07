@@ -17,12 +17,12 @@
                     <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="title">Заголовок</label>
-                            <input name="title" value="{{ $item->title }}"
-                                   id="title"
+                            <input name="title" value="{{ $item->title }}" {{-- name="title - имя должно дублировать имя столбца в таблице --}}
+                                   id="title" {{-- нужен для того чтобы привязался <label for="title">Заголовок</label> --}}
                                    type="text"
                                    class="form-control"
-                                   minlength="3"
-                                   required>
+                                   minlength="3" {{-- минимальная длина --}}
+                                   required> {{-- обязательное поле должно заполняться --}}
                         </div>
 
                         <div class="form-group">
@@ -41,9 +41,9 @@
                                     placeholder="Выберите категорию"
                                     required>
                                 @foreach($categoryList as $categoryOption)
-                                    <option value="{{ $categoryOption->id }}"
-                                            @if($categoryOption->id == $item->parent_id) selected @endif>
-                                        {{ $categoryOption->id }}. {{ $categoryOption->title }}
+                                    <option value="{{ $categoryOption->id }}" {{-- идентификатор категории --}}
+                                            @if($categoryOption->id == $item->parent_id) selected @endif> {{-- если идентификатор категории равен parent_id текущего элемента--}}
+                                        {{ $categoryOption->id }}. {{ $categoryOption->title }} {{-- выводим id. имя --}}
                                         {{-- {{ $categoryOption->id_title }}--}}
                                     </option>
                                 @endforeach

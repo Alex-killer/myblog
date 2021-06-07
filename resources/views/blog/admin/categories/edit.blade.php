@@ -6,14 +6,15 @@
 
 @section('content')
     @php /** @var \App\Models\Blog\BlogCategory $item */ @endphp
-        <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет и выдаст ошибку --}}
+        <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет маршрут и сюда же нельзя написать просто PATCH (смотреть маршруты) и выдаст ошибку, нужно писать ниже @method('PATCH') --}}
             @method('PATCH') {{-- метод отправки формы (PATCH - это когда ты редактируешь сущности и меняешь что то чуть-чуть(пару параметров), а PUT - это когда одну сущность заменяешь другой) --}}
-            @csrf
+            @csrf {{-- отправляем токен, чтобы защитить форму от хакинга --}}
             <div class="container">
                 @php
                     /** @var \Illuminate\Support\ViewErrorBag $errors */ // переменная $errors берется из ларавел
                 @endphp
                 {{-- Плашка которая будет появляться с ошибкой или с успехом --}}
+                {{-- этот блог кода выводится если к нам поступил ->withErrors из CategoryController update --}}
                 @if($errors->any()) {{-- смотрим переменную $errors, если в ней хоть что то есть any(), то выполняем код --}}
                     <div class="row justify-content-center">
                         <div class="col-md-11">

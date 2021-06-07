@@ -29,7 +29,7 @@ Route::prefix("blog")->group(function () {
 });
     // Админка Блога
     $groupData = [
-        'namespace' => 'App\Http\Controllers\Blog\Admin',
+        'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
         'prefix'    => 'admin/blog', // отображение в адресной строке (url)
     ];
 Route::group($groupData, function () {
