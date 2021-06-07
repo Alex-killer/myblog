@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\Blog\BlogCategory;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,7 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //request - это инструментарий с помощью которого мы можем работать с входящими данными (определять путь, определять ip и т.д), $id ({category}) - идентификатор берем его из маршрута  admin/blog/categories/{category}
+    public function update(BlogCategoryUpdateRequest $request, $id) //BlogCategoryUpdateRequest - валидация, request - это инструментарий с помощью которого мы можем работать с входящими данными (определять путь, определять ip и т.д), $id ({category}) - идентификатор берем его из маршрута  admin/blog/categories/{category}
     {
         $item = BlogCategory::find($id); // функция find вернет либо объект класса BlogCategory найденое по идентификатору($id), либо вернет нул // $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) { // если пришло пустое
