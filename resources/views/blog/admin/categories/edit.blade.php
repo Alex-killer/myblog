@@ -6,9 +6,15 @@
 
 @section('content')
     @php /** @var \App\Models\Blog\BlogCategory $item */ @endphp
+
+    @if($item->exists) {{-- если item существует в БД, то идет обновление формы --}}
         <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет маршрут и сюда же нельзя написать просто PATCH (смотреть маршруты) и выдаст ошибку, нужно писать ниже @method('PATCH') --}}
-            @method('PATCH') {{-- метод отправки формы (PATCH - это когда ты редактируешь сущности и меняешь что то чуть-чуть(пару параметров), а PUT - это когда одну сущность заменяешь другой) --}}
-            @csrf {{-- отправляем токен, чтобы защитить форму от хакинга --}}
+        @method('PATCH') {{-- метод отправки формы (PATCH - это когда ты редактируешь сущности и меняешь что то чуть-чуть(пару параметров), а PUT - это когда одну сущность заменяешь другой) --}}
+    @else {{-- Если не существует, то создаем --}}
+        <form method="POST" action="{{ route('blog.admin.categories.store') }}">
+    @endif
+        @csrf {{-- отправляем токен, чтобы защитить форму от хакинга --}}
+
             <div class="container">
                 @php
                     /** @var \Illuminate\Support\ViewErrorBag $errors */ // переменная $errors берется из ларавел

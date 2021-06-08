@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogCategoryUpdateRequest;
+use App\Http\Requests\BlogCategoryCreateRequest;
 use App\Models\Blog\BlogCategory;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends BaseController
 {
@@ -27,24 +28,50 @@ class CategoryController extends BaseController
      */
     public function create()
     {
+        $item = new BlogCategory(); // создаем объект класса пустой, в нем нет данных
+        $categoryList = BlogCategory::all();
+        // = $this->blogCategoryRepository->getForComboBox();
 
+        return view('blog.admin.categories.edit',
+            compact('item', 'categoryList'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogCategoryCreateRequest $request)
     {
-        //
+        $data = $request->input(); // получаем данные которые пришли с формы
+        if (empty($data['slug'])) // если slug не пришел
+        {
+            $data['slug'] = str::slug($data['title']); // то тогда мы с помощью ларавельно str::slug делаем транслит нашего заголовка для слага
+        }
+
+        //Первый способ создания
+        //Создаст объект но не добавит в БД
+//        $item = new BlogCategory($data);
+//        $item->save();
+
+        // второй способ создания
+        // Создаст объект и добавит в БД
+        $item = (new BlogCategory())->create($data); // создаем BlogCategory пустой и вызываем метод create в него тправляем данные ($data)
+
+        if ($item) {
+            return redirect()->route('blog.admin.categories.edit', [$item->id]) // делаем редирект на изменение, отправляем id
+            ->with(['success' => 'Успешно сохранено']); // отправляем 'success'
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput(); // чтобы человек не потерял данные при ошибки
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -59,8 +86,8 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(BlogCategoryUpdateRequest $request, $id) //BlogCategoryUpdateRequest - валидация, request - это инструментарий с помощью которого мы можем работать с входящими данными (определять путь, определять ip и т.д), $id ({category}) - идентификатор берем его из маршрута  admin/blog/categories/{category}
@@ -68,14 +95,22 @@ class CategoryController extends BaseController
         $item = BlogCategory::find($id); // функция find вернет либо объект класса BlogCategory найденое по идентификатору($id), либо вернет нул // $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) { // если пришло пустое
             return back() // делаем редирект назад
-                ->withErrors(['msg' => "Запись id=[{$id}] не найдена"]) // кладем в сессию с помощью withErrors само сообщение и текст сообщения "Запись id=[{$id}] не найдена"
-                ->withInput(); // при ошибки чтобы,  те данные которые пришли, вернуть назад (чтобы те данные которые вводили сохранились, чтобы не пришлось все вводить заново), условия прописаны в item_edit_main_col с помощью хелперской функции old
+            ->withErrors(['msg' => "Запись id=[{$id}] не найдена"]) // кладем в сессию с помощью withErrors само сообщение и текст сообщения "Запись id=[{$id}] не найдена"
+            ->withInput(); // при ошибки чтобы,  те данные которые пришли, вернуть назад (чтобы те данные которые вводили сохранились, чтобы не пришлось все вводить заново), условия прописаны в item_edit_main_col с помощью хелперской функции old
         }
 
         $data = $request->all(); // масив всех данных которые пришли вместе с request (т.е. то что мы вводили в форме)
-        $result = $item // у нас есть искомый элемент который мы будем редактировать $item
-            ->fill($data) // заполим обновим свойства нашего оъекта, но они еще в базу не попадут (fill будет пробегаься по масиву $data по ключу нахдить сответствующее поле в нашем объкте и менять тем знаечением котоое пришло (кода мы редактруем запись)). Так же чторбы все сработало, нужно указать в модели какие данные можно редпктировать
-            ->save(); // записываем в базу
+        if (empty($data['slug'])) {
+            $data['slug'] = str::slug($data['title']);
+        }
+
+        $result = $item->update($data); // у нас есть искомый элемент который мы будем редактировать $item
+
+        // 2 способ, но лучше использовать ($result = $item->update($data);), т.к. в него уже входят ->fill($data), ->save();
+//        $result = $item
+//        ->fill($data) // заполим обновим свойства нашего оъекта, но они еще в базу не попадут (fill будет пробегаься по масиву $data по ключу нахдить сответствующее поле в нашем объкте и менять тем знаечением котоое пришло (кода мы редактруем запись)). Так же чторбы все сработало, нужно указать в модели какие данные можно редпктировать
+//        ->save(); // записываем в базу
+
 //        if (empty($data['slug'])) {
 //            $data['slug'] = str_slug($data['title']);
 //        }
