@@ -54,7 +54,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog\Category  $category
+     * @param  \App\Models\Blog\BlogCategory  $category
      * @return \Illuminate\Http\Response
      */
     public function show(BlogCategory $category)
@@ -72,10 +72,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Blog\Category  $category
+     * @param  \App\Models\Blog\BlogCategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(BlogCategory $category)
     {
         //
     }

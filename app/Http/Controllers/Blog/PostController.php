@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\Blog\Category;
+use App\Models\Blog\BlogCategory;
 use App\Models\Blog\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -46,7 +46,7 @@ class PostController extends Controller
      * @param  \App\Models\Blog\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Category $category1, Post $post) // Category $category1 передаем в роут
+    public function show(Request $request, BlogCategory $category1, Post $post) // Category $category1 передаем в роут
     {
         return view('blog.post')->with([
             'post' => $post,

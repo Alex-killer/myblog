@@ -37,6 +37,7 @@ Route::prefix("blog")->group(function () {
 });
 // Админка Блога
 $groupData = [
+    'middleware' => 'role:admin',
     'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
     'prefix'    => 'admin/blog', // отображение в адресной строке (url)
 ];
@@ -44,7 +45,7 @@ Route::group($groupData, function () {
     $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('categories', 'CategoryController')
         ->only($methods) // для каких методов нужно создать маршруты
-        ->middleware(['auth'])
+        //->middleware(['auth'])
         ->names('blog.admin.categories');
 });
 
