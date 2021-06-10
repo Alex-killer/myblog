@@ -40,6 +40,9 @@
                             <li class="nav-item">
                                 <a href="{{ route("blog_articles") }}" class="nav-link">Новости</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route("blog_articles") }}" class="nav-link">Панель администратора</a>
+                            </li>
                             <form  method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button  type="button" class="btn btn-primary" :href="route('logout')"
