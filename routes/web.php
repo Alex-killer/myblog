@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
 Route::get('/', [PagesController::class, 'index'])->name("main");
 Route::get('contacts', [PagesController::class, 'contacts'])->name("contacts");
 Route::get('info', [PagesController::class, 'info'])->name("info");
@@ -27,15 +35,16 @@ Route::prefix("blog")->group(function () {
     Route::get('articles6', [ArticleController::class, 'index'])->name("blog_articles");
     Route::get('article/{article}', [ArticleController::class, 'show'])->name("blog_article");
 });
-    // Админка Блога
-    $groupData = [
-        'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
-        'prefix'    => 'admin/blog', // отображение в адресной строке (url)
-    ];
+// Админка Блога
+$groupData = [
+    'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
+    'prefix'    => 'admin/blog', // отображение в адресной строке (url)
+];
 Route::group($groupData, function () {
     $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('categories', 'CategoryController')
         ->only($methods) // для каких методов нужно создать маршруты
+        ->middleware(['auth'])
         ->names('blog.admin.categories');
 });
 
@@ -47,6 +56,6 @@ Route::group($groupData, function () {
     $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('articles', 'ArticleController')
         ->only($methods) // для каких методов нужно создать маршруты
+        ->middleware(['auth'])
         ->names('blog.admin.articles');
 });
-

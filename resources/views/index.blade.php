@@ -4,6 +4,7 @@
     Главная страница
 @endsection
 
+
 @section('content')
     Главная страничка
 @endsection

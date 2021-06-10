@@ -74,10 +74,13 @@ class CategoryController extends BaseController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // BlogCategoryRepository $categoryRepository - создание объекта класса, равнозначно $categoryRepository = new BlogCategoryRepository
     {
         $item = BlogCategory::findOrFail($id); // findOrFail - ищет по id, если не найдет вернет 404 ошибку
         $categoryList = BlogCategory::all(); //получаем все категории из базы, чтобы выводить открывающийся список
+
+        //$item = $categoryRepository->getEdit($id); // получить запись по id для ее последующего редактирования
+        //$categoryList = $categoryRepository->getForComboBox(); // получить объекты для ComboBox(выпадающего списка)
 
         return view('blog.admin.categories.edit',
             compact('item', 'categoryList'));

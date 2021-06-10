@@ -23,4 +23,4 @@ RUN apk add --update --no-cache \
     build-base \
   && rm -rf /tmp/* /var/cache/apk/*
 
-#CMD ["node", "server.js"]
+CMD ["npm", "start"]

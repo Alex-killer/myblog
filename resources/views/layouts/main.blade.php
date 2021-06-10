@@ -21,28 +21,44 @@
             </button>
 
             {{-- разворачивающиеся меню при нажатии на кнопку --}}
-            <div class="collapse navbar-collapse" id="navbarScroll">
+            <div class="collapse navbar-collapse " id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li class="nav-item">
-                        <a href="{{ route("main") }}" class="nav-link">Главная страница</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("contacts") }}" class="nav-link">Контакты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("info") }}" class="nav-link">Информация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("blog_categories") }}" class="nav-link">Категории</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route("blog_articles") }}" class="nav-link">Новости</a>
-                    </li>
+                    @if (Route::has('login'))
+                            @auth
+                            <li class="nav-item">
+                                <a href="{{ route("main") }}" class="nav-link">Главная страница</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route("contacts") }}" class="nav-link">Контакты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route("info") }}" class="nav-link">Информация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route("blog_categories") }}" class="nav-link">Категории</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route("blog_articles") }}" class="nav-link">Новости</a>
+                            </li>
+                            <form  method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button  type="button" class="btn btn-primary" :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                        this.closest('form').submit();">{{ __('Log Out') }}</button>
+                            </form>
+                            @else
+                                <a href="{{ route('login') }}" class="nav-link">Войти</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="nav-link">Регистрация</a>
+                            @endif
+                            @endauth
+                    @endif
                 </ul>
-                <form class="d-flex">
-                    <input type="search" placeholder="Search" class="form-control me-2">
-                    <button class="btn btn-outline-success">Search</button>
-                </form>
+{{--                <form class="d-flex">--}}
+{{--                    <input type="search" placeholder="Search" class="form-control me-2">--}}
+{{--                    <button class="btn btn-outline-success">Search</button>--}}
+{{--                </form>--}}
             </div>
         </div>
     </nav>

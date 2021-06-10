@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog\Category;
+use App\Models\Blog\BlogCategory;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories5 = Category::all(); // выводится список всех категорий
+        $categories5 = BlogCategory::all(); // выводится список всех категорий
 //        $arr = [
 //            'categories' => $categories,
 //            'b' => 10,
@@ -57,10 +57,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Blog\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(BlogCategory $category)
     {
         $posts = Post::where('category_id', '=', $category->id)->get(); // выводим те посты которые находятся в данной категории
-        $categories5 = Category::all();
+        $categories5 = BlogCategory::all();
 
         return view('blog.category')->with([
             'category' => $category,
@@ -87,7 +87,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Blog\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, BlogCategory $category)
     {
         //
     }
@@ -98,7 +98,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Blog\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(BlogCategory $category)
     {
         //
     }
