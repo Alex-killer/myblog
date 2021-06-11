@@ -39,13 +39,24 @@ Route::prefix("blog")->group(function () {
 $groupData = [
     'middleware' => 'role:admin',
     'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
+    'prefix'    => 'admin_panel', // отображение в адресной строке (url)
+];
+Route::group($groupData, function () {
+    $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
+    Route::resource('/', 'HomeController')
+        ->only($methods) // для каких методов нужно создать маршруты
+        ->names('blog.admin');
+});
+
+$groupData = [
+    'middleware' => 'role:admin',
+    'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
     'prefix'    => 'admin/blog', // отображение в адресной строке (url)
 ];
 Route::group($groupData, function () {
     $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('categories', 'CategoryController')
         ->only($methods) // для каких методов нужно создать маршруты
-        //->middleware(['auth'])
         ->names('blog.admin.categories');
 });
 
@@ -57,6 +68,5 @@ Route::group($groupData, function () {
     $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('articles', 'ArticleController')
         ->only($methods) // для каких методов нужно создать маршруты
-        ->middleware(['auth'])
         ->names('blog.admin.articles');
 });

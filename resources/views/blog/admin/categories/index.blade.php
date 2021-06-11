@@ -1,8 +1,6 @@
-@extends('layouts.blog')
+@extends('layouts.admin_layout')
 
-@section('title')
-    Категории
-@endsection
+@section('title', 'Категории')
 
 @section('content')
     <div class="container">
