@@ -9,5 +9,13 @@ class Post extends Model
 {
     use HasFactory;
 
-    public $table = 'blog_posts';
+    protected $fillable // массив тех полей которые функция fill может заполнить (сделано дял того чтобы хакеры через поля не могли бы передать всякие скрипты перезаписываемые)
+        = [
+            'title',
+            'slug',
+            'img',
+            'category_id',
+            'description',
+            'text',
+        ];
 }

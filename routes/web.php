@@ -42,31 +42,25 @@ $groupData = [
     'prefix'    => 'admin_panel', // отображение в адресной строке (url)
 ];
 Route::group($groupData, function () {
-    $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
+    $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('/', 'HomeController')
         ->only($methods) // для каких методов нужно создать маршруты
         ->names('blog.admin');
-});
 
-$groupData = [
-    'middleware' => 'role:admin',
-    'namespace' => 'App\Http\Controllers\Blog\Admin', // путь до самого контроллера
-    'prefix'    => 'admin/blog', // отображение в адресной строке (url)
-];
-Route::group($groupData, function () {
-    $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
     Route::resource('categories', 'CategoryController')
-        ->only($methods) // для каких методов нужно создать маршруты
+        ->only($methods)
         ->names('blog.admin.categories');
+
+    Route::resource('articles', 'ArticleController')
+        ->only($methods)
+        ->names('blog.admin.articles');
+
+    Route::resource('posts', 'PostController')
+        ->only($methods)
+        ->names('blog.admin.posts');
+
+    Route::resource('users', 'UserController')
+        ->only($methods)
+        ->names('blog.admin.users');
 });
 
-$groupData = [
-    'namespace' => 'App\Http\Controllers\Blog\Admin',
-    'prefix'    => 'admin/blog', // отображение в адресной строке (url)
-];
-Route::group($groupData, function () {
-    $methods = ['index', 'edit', 'update', 'create', 'store']; //index - список всех категорий edit - редактирование update - когда нажимаем сохранить идем сюда create - создание категории store - переходим сюда, когда нажимаем на кнопку создать
-    Route::resource('articles', 'ArticleController')
-        ->only($methods) // для каких методов нужно создать маршруты
-        ->names('blog.admin.articles');
-});

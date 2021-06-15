@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BlogPostsSeeder extends Seeder
+class PostsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class BlogPostsSeeder extends Seeder
     public function run()
     {
         for ($i = 0; $i < 50; $i++){
-            DB::table('blog_posts')->insert([
+            DB::table('posts')->insert([
                 'category_id' => rand(0, 9),
                 'title' => 'Post '.$i,
                 'slug' => 'post-'.$i,

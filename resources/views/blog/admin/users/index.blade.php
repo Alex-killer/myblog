@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все категории')
+@section('title', 'Все пользователи')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,8 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все категории</h1>
+                    <h1 class="m-0">Все пользователи</h1>
                 </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <a class="btn btn-primary" href="{{ route('blog.admin.users.create') }}" role="button">Создать пользователя</a>
+                    </ol>
+                </div>
             </div><!-- /.row -->
             <!-- Плашка которая появляется сверху при сохранении -->
             @if (session('success'))
@@ -34,13 +39,13 @@
                                     ID
                                 </th>
                                 <th>
-                                    Название
+                                    Имя
                                 </th>
                                 <th style="width: 30%">
-                                    Идентификатор (Slug)
+                                    Email
                                 </th>
                                 <th>
-                                    Обновлено
+                                    Создан
                                 </th>
                                 <th style="width: 30%">
                                 </th>
@@ -53,27 +58,21 @@
                                     {{ $item['id'] }}
                                 </td>
                                 <td>
-                                    <a>
-                                        {{ $item['title'] }}
-                                    </a>
-                                    <br>
-                                    <small>
-                                        {{ $item['created_at'] }}
-                                    </small>
+                                    {{ $item['name'] }}
                                 </td>
                                 <td>
-                                    {{ $item['slug'] }}
+                                    {{ $item['email'] }}
                                 </td>
                                 <td>
-                                    {{ $item['updated_at'] }}
+                                    {{ $item['created_at'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-info btn-sm" href="{{ route('blog.admin.categories.edit', $item->id) }}"> {{-- $item->id - передаем id категории которую редактируем --}}
+                                    <a class="btn btn-info btn-sm" href="{{ route('blog.admin.users.edit', $item->id) }}"> {{-- $item->id - передаем id категории которую редактируем --}}
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    <form action="{{ route('blog.admin.categories.destroy', $item->id) }}" method="POST" style="display: inline-block">
+                                    <form action="{{ route('blog.admin.users.destroy', $item->id) }}" method="POST" style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <Button type="submit" class="btn btn-danger btn-sm delete-btn" href="#"> {{-- окно с подтверждением, взаимодействует с /public/admin.js --}}

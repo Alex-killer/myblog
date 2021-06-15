@@ -6,6 +6,7 @@ use App\Http\Controllers\Blog\Admin\BaseController;
 use App\Models\Blog\Article;
 use App\Models\Blog\BlogCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticleController extends BaseController
 {
@@ -14,9 +15,9 @@ class ArticleController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paginator = Article::paginate(10); // создаем объект $paginator и помещаем в него значене которое берем из модели Article
+        $paginator = Article::orderBy('created_at', 'DESC')->paginate(10); // создаем объект $paginator и помещаем в него значене которое берем из модели Article
 
         return view('blog.admin.articles.index', compact('paginator')); // вместо compact('paginator'), можно написать ['paginator'=>$paginator], в параметр 'paginator' будут передаваться все значения из переменной $paginator, т.е. все значения из БД постранично
     }
@@ -28,7 +29,12 @@ class ArticleController extends BaseController
      */
     public function create()
     {
-        //
+        $item = new BlogCategory(); // создаем объект класса пустой, в нем нет данных
+        $categoryList = BlogCategory::orderBy('id', 'ASC')->get();
+        // = $this->blogCategoryRepository->getForComboBox();
+
+        return view('blog.admin.articles.create',
+            compact('item', 'categoryList'));
     }
 
     /**
@@ -39,7 +45,27 @@ class ArticleController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->input(); // получаем данные которые пришли с формы
+        if (empty($data['slug'])) // если slug не пришел
+        {
+            $data['slug'] = str::slug($data['title']); // то тогда мы с помощью ларавельно str::slug делаем транслит нашего заголовка для слага
+        }
+        // 1 способ более длинный
+//        $new_category = new BlogCategory($data);
+//        $new_category->title = $request->title; // в поле title присваеваем title, который мы присылаем из формы
+//        $new_category->save(); // сохраняем
+
+        // 2 способ включат в себя все строки выше
+        $new_article = (new Article())->create($data);
+
+        //return redirect()->back()->withSuccess('Категория успешно добавлена');
+        if ($new_article) {
+            return redirect()->back() // делаем редирект на изменение
+            ->with(['success' => 'Успешно сохранено']); // отправляем 'success'
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput(); // чтобы человек не потерял данные при ошибки
+        }
     }
 
     /**
@@ -75,34 +101,15 @@ class ArticleController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        $item = Article::find($id); // функция find вернет либо объект класса Article найденое по идентификатору($id), либо вернет нул // $this->blogCategoryRepository->getEdit($id);
-        if (empty($item)) { // если пришло пустое
-            return back() // делаем редирект назад
-            ->withErrors(['msg' => "Запись id=[{$id}] не найдена"]) // кладем в сессию с помощью withErrors само сообщение и текст сообщения "Запись id=[{$id}] не найдена"
-            ->withInput(); // при ошибки чтобы,  те данные которые пришли, вернуть назад (чтобы те данные которые вводили сохранились, чтобы не пришлось все вводить заново)
-        }
+        $article->title = $request->title;
+        $article->slug = $request->slug;
+        $article->category_id = $request->category_id;
+        $article->content_raw = $request->content_raw;
+        $article->save();
 
-        $data = $request->all(); // масив всех данных которые пришли вместе с request (т.е. то что мы вводили в форме)
-        $result = $item // у нас есть искомый элемент который мы будем редактировать $item
-        ->fill($data) // заполим обновим свойства нашего оъекта, но они еще в базу не попадут (fill будет пробегаься по масиву $data по ключу нахдить сответствующее поле в нашем объкте и менять тем знаечением котоое пришло (кода мы редактруем запись))
-        ->save(); // записываем в базу
-//        if (empty($data['slug'])) {
-//            $data['slug'] = str_slug($data['title']);
-//        }
-//
-//        $result = $item->update($data);
-
-        if ($result) { // получаем результат работы
-            return redirect()
-                ->route('blog.admin.articles.edit', $item->id) // чтобы построить маршрут нам нужен идетификатор категории $item->id
-                ->with(['success' => 'Успешно сохранено']);
-        } else {
-            return back()
-                ->withErrors(['msg' => 'Ошибка сохранения'])
-                ->withInput();
-        }
+        return redirect()->back()->withSuccess('Новость была успешно обновлена');
     }
 
     /**
@@ -111,8 +118,9 @@ class ArticleController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->back()->withSuccess('Категория была успешно удалена');
     }
 }

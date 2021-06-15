@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить категорию</h1>
+                    <h1 class="m-0">Добавить Новость</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <!-- Плашка которая появляется сверху при сохранении -->
@@ -29,12 +29,16 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('blog.admin.categories.store') }}" method="POST">
+                        <form action="{{ route('blog.admin.articles.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Название</label>
-                                    <input type="text" name="title" class="form-control" id="title" placeholder="Введите название категории" required>
+                                    <input name="title"
+                                           id="title"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="Введите название категории" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="slug">Идентификатор (необязательно)</label>
@@ -43,6 +47,26 @@
                                            type="text"
                                            class="form-control"
                                            placeholder="Введите название идентификатора">
+                                </div>
+                                <div class="form-group">
+                                    <label for="content_raw">Текст</label>
+                                    <input name="content_raw"
+                                           id="content_raw"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="Введите текст">
+                                </div>
+                                <div class="form-group">
+                                    <label for="category_id">Выберите категорию</label></br>
+                                    <select name="category_id"
+                                            id="category_id"
+                                            class="form-control"
+                                            placeholder="Выберите категорию"
+                                            required>
+                                        @foreach($categoryList as $categoryOption)
+                                            <option value="{{ $categoryOption->id }}">{{ $categoryOption->id }}.{{ $categoryOption->title }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.card-body -->

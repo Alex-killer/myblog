@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(BlogCategoriesSeeder::class);
-        $this->call(BlogPostsSeeder::class);
+        $this->call(PostsSeeder::class);
 
         Article::factory()->count(30)->create(); // фабрика вызывается напрямую и указывается количество новостей
         //$this->call(NewsSeeder::class); // либо фабрику можно вызвать с помощью сидера

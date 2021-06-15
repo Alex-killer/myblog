@@ -1,59 +1,61 @@
-@extends('layouts.blog')
+@extends('layouts.admin_layout')
 
-@section('title')
-    Редактирование
-@endsection
+@section('title', 'Редактирование категории')
 
 @section('content')
-    @php /** @var \App\Models\Blog\BlogCategory $item */ @endphp
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Редактирование категории: {{ $item['title'] }}</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <!-- Плашка которая появляется сверху при сохранении -->
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
+                </div>
+            @endif
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-    @if($item->exists) {{-- если item существует в БД, то идет обновление формы --}}
-        <form method="POST" action="{{ route('blog.admin.categories.update', $item->id) }}"> {{-- если не прописывать метод (@method('PATCH')), то laravel не найдет маршрут и сюда же нельзя написать просто PATCH (смотреть маршруты) и выдаст ошибку, нужно писать ниже @method('PATCH') --}}
-        @method('PATCH') {{-- метод отправки формы (PATCH - это когда ты редактируешь сущности и меняешь что то чуть-чуть(пару параметров), а PUT - это когда одну сущность заменяешь другой) --}}
-    @else {{-- Если не существует, то создаем --}}
-        <form method="POST" action="{{ route('blog.admin.categories.store') }}">
-    @endif
-        @csrf {{-- отправляем токен, чтобы защитить форму от хакинга --}}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form action="{{ route('blog.admin.categories.update', $item->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Название</label>
+                                    <input type="text" value="{{ $item['title'] }}" name="title" class="form-control" id="exampleInputEmail1" placeholder="Введите название категории" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="slug">Идентификатор (необязательно)</label>
+                                    <input name="slug"
+                                           id="slug"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="Введите название идентификатора">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
 
-            <div class="container">
-                @php
-                    /** @var \Illuminate\Support\ViewErrorBag $errors */ // переменная $errors берется из ларавел
-                @endphp
-                {{-- Плашка которая будет появляться с ошибкой или с успехом --}}
-                {{-- этот блог кода выводится если к нам поступил ->withErrors из CategoryController update --}}
-                @if($errors->any()) {{-- смотрим переменную $errors, если в ней хоть что то есть any(), то выполняем код --}}
-                    <div class="row justify-content-center">
-                        <div class="col-md-11">
-                            <div class="alert alert-danger" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">x</span>
-                                </button>
-                                {{ $errors->first() }} {{-- получаем первую ошибку из списка --}}
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Обновить</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                @endif
-
-                @if(session('success')) {{-- session хелперская(ларавеля) функция - в session ищем ключ 'success', если найден то выполянется код --}}
-                    <div class="row justify-content-center">
-                        <div class="col-md-11">
-                            <div class="alert alert-success" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">x</span>
-                                </button>
-                                {{ session()->get('success') }} {{-- получаем значение этого ключа, обращаемся к сесии (session()) получить ключ 'success' --}}
-                            </div>
-                        </div>
-                    </div>
-                @endif
-                        <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                @include('blog.admin.categories.includes.item_edit_main_col')
-                            </div>
-                            <div class="col-md-3">
-                                @include('blog.admin.categories.includes.item_edit_add_col')
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 @endsection

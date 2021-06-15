@@ -23,8 +23,7 @@
     <link rel="stylesheet" href="/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/admin/plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="/admin/plugins/summernote/summernote-bs4.min.css">
+    <link href="/admin/dist/css/colorbox.css" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -81,12 +80,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link">
+                                <a href="{{ route('blog.admin.posts.index') }}" class="nav-link">
                                     <p>Все статьи</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link">
+                                <a href="{{ route('blog.admin.posts.create') }}" class="nav-link">
                                     <p>Добавить статью</p>
                                 </a>
                             </li>
@@ -109,6 +108,27 @@
                             <li class="nav-item">
                                 <a href="{{ route('blog.admin.categories.create') }}" class="nav-link">
                                     <p>Добавить категорию</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-align-left"></i>
+                            <p>
+                                Новости
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('blog.admin.articles.index') }}" class="nav-link">
+                                    <p>Все новости</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('blog.admin.articles.create') }}" class="nav-link">
+                                    <p>Добавить новость</p>
                                 </a>
                             </li>
                         </ul>
@@ -170,6 +190,9 @@
 <script src="/admin/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
+<script type="text/javascript" src="/admin/dist/js/jquery.colorbox-min.js"></script>
+<script src="https://cdn.tiny.cloud/1/73rbdh2su8qwy723v439zoc8bxo9ve21cnu2q9psx90rn8z9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.js"></script>
 <script src="/admin/admin.js"></script>
 </body>
 </html>

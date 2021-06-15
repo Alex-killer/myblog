@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все категории')
+@section('title', 'Все посты')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все категории</h1>
+                    <h1 class="m-0">Все посты</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <!-- Плашка которая появляется сверху при сохранении -->
@@ -40,6 +40,9 @@
                                     Идентификатор (Slug)
                                 </th>
                                 <th>
+                                    Описание
+                                </th>
+                                <th>
                                     Обновлено
                                 </th>
                                 <th style="width: 30%">
@@ -65,15 +68,18 @@
                                     {{ $item['slug'] }}
                                 </td>
                                 <td>
+                                    {{ $item['description'] }}
+                                </td>
+                                <td>
                                     {{ $item['updated_at'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-info btn-sm" href="{{ route('blog.admin.categories.edit', $item->id) }}"> {{-- $item->id - передаем id категории которую редактируем --}}
+                                    <a class="btn btn-info btn-sm" href="{{ route('blog.admin.posts.edit', $item->id) }}"> {{-- $item->id - передаем id категории которую редактируем --}}
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    <form action="{{ route('blog.admin.categories.destroy', $item->id) }}" method="POST" style="display: inline-block">
+                                    <form action="{{ route('blog.admin.posts.destroy', $item->id) }}" method="POST" style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <Button type="submit" class="btn btn-danger btn-sm delete-btn" href="#"> {{-- окно с подтверждением, взаимодействует с /public/admin.js --}}

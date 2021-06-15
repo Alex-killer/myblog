@@ -23,6 +23,7 @@ tinymce.init({
     toolbar_mode: 'floating',
     relative_urls : false,
     file_picker_callback : elFinderBrowser
+
 });
 
 function elFinderBrowser (callback, value, meta) {
