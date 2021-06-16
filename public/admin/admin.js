@@ -18,7 +18,7 @@ $(document).ready(function () {
 })
 
 tinymce.init({
-    selector: '.editor',
+    selector: 'editor',
     plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     toolbar_mode: 'floating',
     relative_urls : false,

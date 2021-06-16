@@ -13,7 +13,6 @@ class Post extends Model
         = [
             'title',
             'slug',
-            'img',
             'category_id',
             'description',
             'text',

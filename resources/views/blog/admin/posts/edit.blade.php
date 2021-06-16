@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить статью')
+@section('title', 'Редактирование категории')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить статью</h1>
+                    <h1 class="m-0">Редактирование новости: {{ $item['title'] }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <!-- Плашка которая появляется сверху при сохранении -->
@@ -29,16 +29,23 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('blog.admin.posts.store') }}" method="POST">
+                        <form action="{{ route('blog.admin.posts.update', $item->id) }}" method="POST">
                             @csrf
+                            @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Название</label>
-                                    <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Введите название поста" required>
+                                    <label for="title">Название</label>
+                                    <input name="title"
+                                           value="{{ $item['title'] }}"
+                                           id="title"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="Введите название категории" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="slug">Идентификатор (необязательно)</label>
                                     <input name="slug"
+                                           value="{{ $item->slug }}"
                                            id="slug"
                                            type="text"
                                            class="form-control"
@@ -47,14 +54,16 @@
                                 <div class="form-group">
                                     <label for="description">Описание</label>
                                     <input name="description"
+                                           value="{{ $item->description }}"
                                            id="description"
                                            type="text"
                                            class="form-control"
                                            placeholder="Введите описание">
                                 </div>
                                 <div class="form-group">
-                                        <label>Выберите категорию</label>
+                                    <label>Выберите категорию</label>
                                     <select name="category_id"
+                                            value="{{ $item->category_id }}"
                                             id="category_id"
                                             class="form-control"
                                             placeholder="Выберите категорию"
@@ -68,7 +77,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="text">Текст поста</label>
                                     <textaria name="text" class="editor"></textaria>
@@ -80,11 +88,11 @@
                                     <a href="" class="popup_selector" data-inputid="feature_image">Выбрать изображение</a>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
+                                <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Добавить</button>
-                            </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Обновить</button>
+                                </div>
                         </form>
                     </div>
                 </div>

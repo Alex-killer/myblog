@@ -81,12 +81,12 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('blog.admin.posts.index') }}" class="nav-link">
-                                    <p>Все статьи</p>
+                                    <p>Все посты</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('blog.admin.posts.create') }}" class="nav-link">
-                                    <p>Добавить статью</p>
+                                    <p>Добавить пост</p>
                                 </a>
                             </li>
                         </ul>
