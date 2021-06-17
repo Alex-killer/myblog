@@ -41,12 +41,12 @@
                         <div class="inner">
                             <h3>Баланс</h3>
 
-                            <p>{{ $user_count }}</p>
+                            <p>{{ Auth::user()->balance }} $</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Показать все <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ 'personal-info' }}" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

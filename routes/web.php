@@ -30,7 +30,8 @@ Route::get('/', [PagesController::class, 'index'])->name("main");
 Route::get('contacts', [PagesController::class, 'contacts'])->name("contacts");
 Route::get('info', [PagesController::class, 'info'])->name("info");
 Route::prefix("blog")->group(function () {
-    Route::get('personal-info', [UserController::class, 'index'])->middleware(['auth'])->name("personal");
+    Route::get('personal', [UserController::class, 'show'])->middleware(['auth'])->name("personal");
+    Route::get('personal-info', [UserController::class, 'edit'])->middleware(['auth'])->name("personal_info");
     Route::get('categories5', [CategoryController::class, 'index'])->middleware(['auth'])->name("blog_categories"); // выводит все категории
     Route::get('category/{category}', [CategoryController::class, 'show'])->middleware(['auth'])->name("blog_category");
     Route::get('category/{category1}/post/{post}/{pages?}', [PostController::class, 'show'])->middleware(['auth'])->name("blog_post");

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1>{{ $category2->title }}</h1> {{-- $category берется из контроллера --}}
+    <h1>{{ $category2->title }}</h1> {{-- $category2 берется из контроллера --}}
     <h2>{{ $post->title }}</h2>
     <div>
         <p>

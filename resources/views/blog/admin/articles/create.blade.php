@@ -63,9 +63,9 @@
                                             class="form-control"
                                             placeholder="Выберите категорию"
                                             required>
-                                        @foreach($categoryList as $categoryOption)
-                                            <option value="{{ $categoryOption->id }}">{{ $categoryOption->id }}.{{ $categoryOption->title }}</option>
-                                        @endforeach
+{{--                                        @foreach($categoryList as $categoryOption)--}}
+{{--                                            <option value="{{ $categoryOption->id }}">{{ $categoryOption->id }}.{{ $categoryOption->title }}</option>--}}
+{{--                                        @endforeach--}}
                                     </select>
                                 </div>
                             </div>

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\Blog\BlogCategory;
-use App\Models\Blog\Post;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-
+        $personal = User::all();
+        return view('blog.personal_edit')->with([
+            'personal-info' => $personal,
+        ]);
     }
 
     /**
@@ -43,38 +45,40 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, BlogCategory $category1, Post $post) // Category $category1 передаем в роут
+    public function show(User $personal)
     {
-        return view('blog.post')->with([
-            'post' => $post,
-            'category2' => $category1, // // 'category2' - передается во вью для извлечения данных, $category1 - берется из роута category/{category1}
-            'pages' => $request->pages,
-
+        return view('blog.personal')->with([
+        'user' => $personal,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Blog\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit()
     {
-        //
+        $userList = User::all();
+
+        return view('blog.personal_edit')->with([
+            'personal-info' => $userList,
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -82,10 +86,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Blog\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(User $user)
     {
         //
     }
