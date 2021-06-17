@@ -1,8 +1,6 @@
 @extends('layouts.blog')
 
-@section('title')
-    Новость
-@endsection
+@section('title', 'Новость')
 
 @section('content')
     <h1>{{ $article->title }}</h1>
@@ -10,8 +8,5 @@
         <p>
             {{ $article->content_raw }}
         </p>
-        <div>
-            <a href="#" class="btn btn-outline-primary mb-4">Редактировать</a>
-        </div>
     </div>
 @endsection

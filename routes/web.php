@@ -3,6 +3,7 @@
 use App\Http\Controllers\Blog\CategoryController;
 use App\Http\Controllers\Blog\ArticleController;
 use App\Http\Controllers\Blog\PostController;
+use App\Http\Controllers\Blog\UserController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,11 +30,12 @@ Route::get('/', [PagesController::class, 'index'])->name("main");
 Route::get('contacts', [PagesController::class, 'contacts'])->name("contacts");
 Route::get('info', [PagesController::class, 'info'])->name("info");
 Route::prefix("blog")->group(function () {
-    Route::get('categories5', [CategoryController::class, 'index'])->name("blog_categories"); // выводит все категории
-    Route::get('category/{category}', [CategoryController::class, 'show'])->name("blog_category");
-    Route::get('category/{category1}/post/{post}/{pages?}', [PostController::class, 'show'])->name("blog_post");
-    Route::get('articles6', [ArticleController::class, 'index'])->name("blog_articles");
-    Route::get('article/{article}', [ArticleController::class, 'show'])->name("blog_article");
+    Route::get('personal-info', [UserController::class, 'index'])->middleware(['auth'])->name("personal");
+    Route::get('categories5', [CategoryController::class, 'index'])->middleware(['auth'])->name("blog_categories"); // выводит все категории
+    Route::get('category/{category}', [CategoryController::class, 'show'])->middleware(['auth'])->name("blog_category");
+    Route::get('category/{category1}/post/{post}/{pages?}', [PostController::class, 'show'])->middleware(['auth'])->name("blog_post");
+    Route::get('articles6', [ArticleController::class, 'index'])->middleware(['auth'])->name("blog_articles");
+    Route::get('article/{article}', [ArticleController::class, 'show'])->middleware(['auth'])->name("blog_article");
 });
 // Админка Блога
 $groupData = [

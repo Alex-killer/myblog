@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container">
             <a href="{{ route("main") }}" class="navbar-brand">My Blog</a>
 
             {{-- Кнопка гамбургер будет отображаться только в мобильной версии --}}
@@ -26,9 +26,6 @@
                     @if (Route::has('login'))
                             @auth
                             <li class="nav-item">
-                                <a href="{{ route("main") }}" class="nav-link">Главная страница</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ route("contacts") }}" class="nav-link">Контакты</a>
                             </li>
                             <li class="nav-item">
@@ -40,18 +37,47 @@
                             <li class="nav-item">
                                 <a href="{{ route("blog_articles") }}" class="nav-link">Новости</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Панель администратора</a>
-                            </li>
-                            <form  method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button  type="button" class="btn btn-primary" :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">{{ __('Log Out') }}</button>
-                            </form>
-                            @else
-                                <a href="{{ route('login') }}" class="nav-link">Войти</a>
+                </ul>
+                            <ul class="list-unstyled topbar-menu float-end mb-0">
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <span>
+                                        <span class="account-user-name">{{ Auth::user()->name }}</span>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" style="">
+                                    <!-- item-->
+                                    <div class=" dropdown-header noti-title">
+                                        <h6 class="text-overflow m-0">Добро пожаловать !</h6>
+                                    </div>
 
+                                    <!-- item-->
+                                    <a href="{{ route("personal") }}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-circle me-1"></i>
+                                        <span>Личный кабинет</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-lifebuoy me-1"></i>
+                                        <span>Поддержка</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <form  method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                    <a class="dropdown-item notify-item" :href="route('logout')"
+                                                 onclick="event.preventDefault();
+                                        this.closest('form').submit();">{{ __('Log Out') }}
+                                    </a>
+                                    </form>
+                                </div>
+                            </li>
+
+                            @else
+                                <a href="{{ route("info") }}" class="nav-link">Информация</a>
+                                <a href="{{ route("contacts") }}" class="nav-link">Контакты</a>
+                                <a href="{{ route('login') }}" class="nav-link">Войти</a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="nav-link">Регистрация</a>
                             @endif
